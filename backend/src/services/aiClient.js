@@ -1,6 +1,15 @@
 const axios = require('axios');
 
-const aiBaseUrl = (process.env.AI_SERVICE_URL || process.env.PYTHON_SERVICE_URL || '').replace(/\/$/, '');
+const rawAiBaseUrl = (process.env.AI_SERVICE_URL || process.env.PYTHON_SERVICE_URL || '').trim();
+
+const aiBaseUrl = (() => {
+  if (!rawAiBaseUrl) {
+    return '';
+  }
+
+  const withProtocol = /^https?:\/\//i.test(rawAiBaseUrl) ? rawAiBaseUrl : `https://${rawAiBaseUrl}`;
+  return withProtocol.replace(/\/$/, '');
+})();
 
 if (!aiBaseUrl) {
   throw new Error('Set AI_SERVICE_URL (or PYTHON_SERVICE_URL) for backend to reach the Python service.');
