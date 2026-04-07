@@ -93,6 +93,23 @@ Frontend runs on http://localhost:5173
 - Backend supports both `AI_SERVICE_URL` and `PYTHON_SERVICE_URL` for Python service integration.
 - Root seeder entrypoint is available as `seed_db.py`.
 
+### 60-Minute Launch Path
+
+1. Railway: provision PostgreSQL and copy `DATABASE_URL`.
+2. Railway: deploy AI service from `ai-service` root.
+3. Railway: deploy backend from `backend` root and set `DATABASE_URL`, `AI_SERVICE_URL` (or `PYTHON_SERVICE_URL`), and `JWT_SECRET`.
+4. Vercel: deploy frontend from `frontend` root and set `VITE_API_BASE_URL` to backend URL.
+5. Verify:
+	- `/health` on backend
+	- `/docs` on AI service
+	- match cards load on frontend
+
+## Live Demo
+
+- Frontend: add your deployed URL here
+- Backend health: add your deployed `/health` URL here
+- AI docs: add your deployed `/docs` URL here
+
 ## API Endpoints
 
 ### Auth

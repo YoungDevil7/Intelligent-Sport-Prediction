@@ -1,4 +1,5 @@
 from math import exp
+import os
 from typing import Dict, List, Optional
 
 from fastapi import FastAPI
@@ -260,3 +261,9 @@ def explain(payload: ExplainRequest) -> dict:
         "confidence_label": payload.confidence_label,
         "key_factors": payload.key_factors,
     }
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8000")))
